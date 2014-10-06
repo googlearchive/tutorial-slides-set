@@ -1,0 +1,92 @@
+:host {
+  width: 320px;
+  height: 360px;
+  display: inline-block;
+  vertical-align: top;
+  margin: 4px 2px;
+  z-index: 0;
+}
+
+#card {
+  position: relative;
+  width: 320px;
+  height: 360px;
+  box-shadow: 0 0 2px 1px rgba(0, 0 ,0, .1);
+  background-color: white;
+  cursor: pointer;
+  color: #333;
+  transition: .25s box-shadow cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+#card:hover {
+  box-shadow: 0 1px 10px 2px rgba(0, 0, 0, .15);
+}
+
+#card.in-transition {
+  z-index: 100;
+}
+
+#preview {
+  height: 200px;
+  background-color: #00bea4;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+#card ::content h2 {
+  font-size: 20px;
+  font-weight: normal;
+  line-height: 48px;
+  padding: 0 0 0 24px;
+  margin: 6px 0;
+}
+
+#card ::content h3 {
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 24px;
+  padding: 0 24px 0 24px;
+  margin: -4px 0 12px 0;
+  max-height: 48px;
+  overflow: hidden;
+}
+
+#card ::content h4 {
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 24px;
+  color: #7F7F7F;
+  padding: 0 24px 0 24px;
+  margin: 0;
+}
+
+#fullScreenSlideView {
+  position: fixed;
+  z-index: 100;
+}
+
+#slidePages {
+  height: 100%;
+}
+
+#slideNav {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.slide-nav-inner {
+  padding: 5px 20px;
+}
+
+.slide-nav-inner p {
+  color: #333;
+  opacity: 0.4;
+}
+
+#progressBar {
+  height: 4px;
+  background-color: #edff40;
+  transition: .25s width cubic-bezier(0.4, 0.0, 0.2, 1);
+}
