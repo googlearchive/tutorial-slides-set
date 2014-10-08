@@ -80,9 +80,10 @@
   padding: 5px 20px;
 }
 
-.slide-nav-inner p {
+.slide-nav-inner span {
   color: #333;
   opacity: 0.4;
+  line-height: 42px;
 }
 
 #progressBar {

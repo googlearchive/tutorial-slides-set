@@ -11,7 +11,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../core-animated-pages/core-animated-pages.html">
 <link rel="import" href="../core-animated-pages/transitions/slide-from-right.html">
 <link rel="import" href="../core-icon-button/core-icon-button.html">
-<link rel="import" href="../core-a11y-keys/core-a11y-keys.html">f
+<link rel="import" href="../core-a11y-keys/core-a11y-keys.html">
 
 <!--
 A slideshow component suitable for displaying tutorials.
@@ -31,17 +31,45 @@ A slideshow component suitable for displaying tutorials.
 @blurb A slideshow component suitable for displaying tutorials.
 @homepage https://polymerlabs.github.io/tutorial-slides-set/
 -->
+
+<!--
+Fired when a set of slides is opened by the user.
+
+@event tutorial-slides-set-open
+-->
+
+<!--
+Fired when a set of slides is closed by the user.
+
+@event tutorial-slides-set-close
+-->
+
+<!--
+Fired when the current slide is changed by the user.
+
+@event tutorial-slides-set-slide-change
+-->
 <polymer-element name="tutorial-slide">
   <template>
     <style>
     :host {
       background-color: white;
+    }
+
+    #slideContent {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 60px;
       padding: 20px;
+      overflow: scroll;
+      -webkit-overflow-scrolling: touch;
     }
     </style>
 
     <section>
-      <div slide-from-right>
+      <div id="slideContent" slide-from-right>
         <content></content>
       </div>
     </section>
@@ -52,7 +80,7 @@ A slideshow component suitable for displaying tutorials.
   </script>
 </polymer-element>
 
-<polymer-element name="tutorial-slides-set" attributes="open slideIndex">
+<polymer-element name="tutorial-slides-set" attributes="open slideNumber">
   <template>
     <link rel="stylesheet" href="tutorial-slides-set.css">
 
@@ -78,22 +106,22 @@ A slideshow component suitable for displaying tutorials.
 
       <section>
         <div fit id="fullScreenSlideView" hero hero-id="fullScreenSlideView">
-          <core-animated-pages id="slidePages" selected="{{slideIndex}}" transitions="slide-from-right">
+          <core-animated-pages id="slidePages" selected="{{slideNumber - 1}}" transitions="slide-from-right">
             <content id="slides" select="tutorial-slide"></content>
           </core-animated-pages>
 
           <nav id="slideNav">
             <div class="slide-nav-inner" layout horizontal>
-              <p>{{slideIndex + 1}}/{{numSlides}}</p>
+              <span>{{slideNumber}}/{{numSlides}}</span>
               <div flex></div>
               <core-icon-button
                 icon="arrow-back"
                 on-tap="{{slideBack}}"
-                disabled?="{{slideIndex === 0}}"></core-icon-button>
+                disabled?="{{slideNumber === 1}}"></core-icon-button>
               <core-icon-button
                 icon="arrow-forward"
                 on-tap="{{slideForward}}"
-                disabled?="{{slideIndex === numSlides - 1}}"></core-icon-button>
+                disabled?="{{slideNumber === numSlides}}"></core-icon-button>
               <core-icon-button icon="close" on-tap="{{closeSlides}}"></core-icon-button>
             </div>
             <div id="progressBar" style="width: {{progressBarValue}}%"></div>
@@ -116,13 +144,13 @@ A slideshow component suitable for displaying tutorials.
     open: false,
 
     /**
-     * The index of the current slide.
+     * The current slide number (1-based index).
      *
-     * @attribute [slideIndex]
+     * @attribute [slideNumber]
      * @type number
-     * @default 0
+     * @default 1
      */
-    slideIndex: 0,
+    slideNumber: 1,
 
     numSlides: 0,
 
@@ -131,21 +159,22 @@ A slideshow component suitable for displaying tutorials.
     progressBarValue: 0,
 
     domReady: function() {
-      this.openChanged();
+      if (this.open) this.openSlides();
       this.numSlides = this.$.slides.getDistributedNodes().length;
       this.updateProgressBar();
     },
 
     openChanged: function() {
-      this.open ? this.openSlides() : this.closeSlides();
+      this.open ? this.openSlidesInner_() : this.closeSlidesInner_();
     },
 
-    slideIndexChanged: function() {
+    slideNumberChanged: function() {
+      this.slideNumber = parseInt(this.slideNumber, 10);
       this.updateProgressBar();
     },
 
     updateProgressBar: function() {
-      this.progressBarValue = 100 * (this.slideIndex + 1) / this.numSlides;
+      this.progressBarValue = 100 * this.slideNumber / this.numSlides;
     },
 
     isSlideOpen: function() {
@@ -153,22 +182,36 @@ A slideshow component suitable for displaying tutorials.
     },
 
     openSlides: function() {
+      this.open = true;
+      this.openSlidesInner_();
+      this.fire('tutorial-slides-set-open');
+    },
+
+    openSlidesInner_: function() {
       this.page = 1;
     },
 
     closeSlides: function() {
+      this.open = false;
+      this.closeSlidesInner_();
+      this.fire('tutorial-slides-set-close');
+    },
+
+    closeSlidesInner_: function() {
       this.page = 0;
     },
 
     slideBack: function() {
-      if (this.isSlideOpen() && this.slideIndex > 0) {
-        this.slideIndex--;
+      if (this.isSlideOpen() && this.slideNumber > 1) {
+        this.slideNumber--;
+        this.fire('tutorial-slides-set-slide-change');
       }
     },
 
     slideForward: function() {
-      if (this.isSlideOpen() && this.slideIndex < this.numSlides - 1) {
-        this.slideIndex++;
+      if (this.isSlideOpen() && this.slideNumber < this.numSlides) {
+        this.slideNumber++;
+        this.fire('tutorial-slides-set-slide-change', this.slideNumber);
       }
     },
 
