@@ -1,0 +1,105 @@
+<!--
+@license
+Copyright (c) 2014 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../more-routing/more-route.html">
+
+<!--
+A wrapper element for tutorial slides that binds the url to the currently open slide.
+
+##### Example
+
+    <more-routing driver="hash"></more-routing>
+    <tutorial-slides-router>
+      <tutorial-slides-set id="set1">...</tutorial-slides-set>
+      <tutorial-slides-set id="set2">...</tutorial-slides-set>
+      <tutorial-slides-set id="set3">...</tutorial-slides-set>
+    </tutorial-slides-router>
+
+`<tutorial-slides-router>` must be preceded by a `<more-routing>` element so that it can bind to the URL.
+The routes defined inside `<tutorial-slides-router>` are:
+
+- `/:slideId/:slideNumber`
+  - Open the `:slideNumber`-th slide of the `<tutorial-slides-set>` with id `:slideId`
+- `/`
+  - Close all `<tutorial-slides-set>`'s
+
+Each `<tutorial-slides-set>` element in `<tutorial-slides-router>` must have an ID.
+
+@element tutorial-slides-router
+@blurb A wrapper element for tutorial slides that binds the url to the currently open slide.
+@homepage https://polymerlabs.github.io/tutorial-slides-set/
+-->
+<polymer-element name="tutorial-slides-router">
+  <template>
+    <more-route id="slideRoute" path="/:slideId/:slideNumber" params="{{params}}"></more-route>
+    <more-route id="rootRoute" path="/"></more-route>
+
+    <content id="content"></content>
+  </template>
+
+  <script>
+  Polymer({
+    slideElementsMap_: null,
+
+    observe: {
+      'params.slideId': 'update_',
+      'params.slideNumber': 'update_'
+    },
+
+    domReady: function() {
+      this.processSlideElements_();
+      this.update_();
+    },
+
+    processSlideElements_: function() {
+      this.slideElementsMap_ = {};
+      var nodes = this.$.content.getDistributedNodes();
+      Array.prototype.forEach.call(nodes, function(node) {
+        if (node.nodeType === 1 && node.tagName.toLowerCase() === 'tutorial-slides-set' && node.id) {
+          this.slideElementsMap_[node.id] = node;
+          node.addEventListener('tutorial-slides-set-open', this.handleSlidesOpen_.bind(this));
+          node.addEventListener('tutorial-slides-set-close', this.handleSlidesClose_.bind(this));
+          node.addEventListener('tutorial-slides-set-slide-change', this.handleSlideChange_.bind(this));
+        }
+      }.bind(this));
+    },
+
+    update_: function() {
+      for (var id in this.slideElementsMap_) {
+        if (id === this.params.slideId) {
+          // TODO: make sure the following don't fire events (so that the handle*_ methods aren't called)
+          this.slideElementsMap_[id].open = true;
+          this.slideElementsMap_[id].slideNumber = this.params.slideNumber;
+        } else {
+          this.slideElementsMap_[id].open = false;
+        }
+      }
+    },
+
+    handleSlidesOpen_: function(evt) {
+      this.$.slideRoute.navigateTo({
+        slideId: evt.target.id,
+        slideNumber: evt.target.slideNumber
+      });
+    },
+
+    handleSlidesClose_: function(evt) {
+      this.$.rootRoute.navigateTo();
+    },
+
+    handleSlideChange_: function(evt) {
+      this.$.slideRoute.navigateTo({
+        slideId: evt.target.id,
+        slideNumber: evt.target.slideNumber
+      });
+    }
+  });
+  </script>
+</polymer-element>

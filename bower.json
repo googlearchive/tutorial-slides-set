@@ -1,0 +1,7 @@
+{
+  "name": "tutorial-slides-set#gh-pages",
+  "private": true,
+  "dependencies": {
+    "tutorial-slides-set": "polymerlabs/tutorial-slides-set#master"
+  }
+}

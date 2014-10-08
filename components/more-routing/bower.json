@@ -1,0 +1,13 @@
+{
+  "private": true,
+  "name": "more-routing",
+  "dependencies": {
+    "core-item": "Polymer/core-item#master",
+    "more-switch": "Polymore/more-switch#master",
+    "polymer": "Polymer/polymer#master"
+  },
+  "devDependencies": {
+    "core-scaffold": "Polymer/core-scaffold#master",
+    "more-param": "Polymore/more-param#master"
+  }
+}

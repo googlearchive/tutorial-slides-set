@@ -1,0 +1,231 @@
+<!--
+@license
+Copyright (c) 2014 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../core-animated-pages/core-animated-pages.html">
+<link rel="import" href="../core-animated-pages/transitions/slide-from-right.html">
+<link rel="import" href="../core-icon-button/core-icon-button.html">
+<link rel="import" href="../core-a11y-keys/core-a11y-keys.html">
+
+<!--
+A slideshow component suitable for displaying tutorials.
+
+##### Example
+
+    <tutorial-slides-set>
+      <h2>Title</h2>
+      <h3>Description of slides</h3>
+      <h4>Some optional extra info</h4>
+      <tutorial-slide>...</tutorial-slide>
+      <tutorial-slide>...</tutorial-slide>
+      ...
+    </tutorial-slides-set>
+
+@element tutorial-slides-set
+@blurb A slideshow component suitable for displaying tutorials.
+@homepage https://polymerlabs.github.io/tutorial-slides-set/
+-->
+
+<!--
+Fired when a set of slides is opened by the user.
+
+@event tutorial-slides-set-open
+-->
+
+<!--
+Fired when a set of slides is closed by the user.
+
+@event tutorial-slides-set-close
+-->
+
+<!--
+Fired when the current slide is changed by the user.
+
+@event tutorial-slides-set-slide-change
+-->
+<polymer-element name="tutorial-slide">
+  <template>
+    <style>
+    :host {
+      background-color: white;
+    }
+
+    #slideContent {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 60px;
+      padding: 20px;
+      overflow: scroll;
+      -webkit-overflow-scrolling: touch;
+    }
+    </style>
+
+    <section>
+      <div id="slideContent" slide-from-right>
+        <content></content>
+      </div>
+    </section>
+  </template>
+
+  <script>
+  Polymer({});
+  </script>
+</polymer-element>
+
+<polymer-element name="tutorial-slides-set" attributes="open slideNumber">
+  <template>
+    <link rel="stylesheet" href="tutorial-slides-set.css">
+
+    <core-a11y-keys target="{{}}" keys="up left" on-keys-pressed="{{slideBack}}"></core-a11y-keys>
+    <core-a11y-keys target="{{}}" keys="down right" on-keys-pressed="{{slideForward}}"></core-a11y-keys>
+    <core-a11y-keys target="{{}}" keys="enter" on-keys-pressed="{{openSlides}}"></core-a11y-keys>
+    <core-a11y-keys target="{{}}" keys="esc" on-keys-pressed="{{closeSlides}}"></core-a11y-keys>
+    <core-a11y-keys target="{{}}" keys="space" on-keys-pressed="{{spaceHandler}}"></core-a11y-keys>
+
+    <core-animated-pages
+      selected="{{page}}"
+      transitions="hero-transition"
+      on-core-animated-pages-transition-prepare="{{prepareForSlideOpenClose}}"
+      on-core-animated-pages-transition-end="{{completeSlideOpenClose}}"
+      tabindex="0">
+
+      <section>
+        <div id="card" name="get-the-code" on-tap="{{openSlides}}">
+          <div id="preview" hero hero-id="fullScreenSlideView"></div>
+          <content select="h2,h3,h4"></content>
+        </div>
+      </section>
+
+      <section>
+        <div fit id="fullScreenSlideView" hero hero-id="fullScreenSlideView">
+          <core-animated-pages id="slidePages" selected="{{slideNumber - 1}}" transitions="slide-from-right">
+            <content id="slides" select="tutorial-slide"></content>
+          </core-animated-pages>
+
+          <nav id="slideNav">
+            <div class="slide-nav-inner" layout horizontal>
+              <span>{{slideNumber}}/{{numSlides}}</span>
+              <div flex></div>
+              <core-icon-button
+                icon="arrow-back"
+                on-tap="{{slideBack}}"
+                disabled?="{{slideNumber === 1}}"></core-icon-button>
+              <core-icon-button
+                icon="arrow-forward"
+                on-tap="{{slideForward}}"
+                disabled?="{{slideNumber === numSlides}}"></core-icon-button>
+              <core-icon-button icon="close" on-tap="{{closeSlides}}"></core-icon-button>
+            </div>
+            <div id="progressBar" style="width: {{progressBarValue}}%"></div>
+          </nav>
+        </div>
+      </section>
+
+    </core-animated-pages>
+  </template>
+
+  <script>
+  Polymer({
+    /**
+     * Set to true to have the slides open by default. 
+     *
+     * @attribute [open]
+     * @type boolean
+     * @default false
+     */
+    open: false,
+
+    /**
+     * The current slide number (1-based index).
+     *
+     * @attribute [slideNumber]
+     * @type number
+     * @default 1
+     */
+    slideNumber: 1,
+
+    numSlides: 0,
+
+    page: 0,
+
+    progressBarValue: 0,
+
+    domReady: function() {
+      if (this.open) this.openSlides();
+      this.numSlides = this.$.slides.getDistributedNodes().length;
+      this.updateProgressBar();
+    },
+
+    openChanged: function() {
+      this.open ? this.openSlidesInner_() : this.closeSlidesInner_();
+    },
+
+    slideNumberChanged: function() {
+      this.slideNumber = parseInt(this.slideNumber, 10);
+      this.updateProgressBar();
+    },
+
+    updateProgressBar: function() {
+      this.progressBarValue = 100 * this.slideNumber / this.numSlides;
+    },
+
+    isSlideOpen: function() {
+      return this.page === 1;
+    },
+
+    openSlides: function() {
+      this.open = true;
+      this.openSlidesInner_();
+      this.fire('tutorial-slides-set-open');
+    },
+
+    openSlidesInner_: function() {
+      this.page = 1;
+    },
+
+    closeSlides: function() {
+      this.open = false;
+      this.closeSlidesInner_();
+      this.fire('tutorial-slides-set-close');
+    },
+
+    closeSlidesInner_: function() {
+      this.page = 0;
+    },
+
+    slideBack: function() {
+      if (this.isSlideOpen() && this.slideNumber > 1) {
+        this.slideNumber--;
+        this.fire('tutorial-slides-set-slide-change');
+      }
+    },
+
+    slideForward: function() {
+      if (this.isSlideOpen() && this.slideNumber < this.numSlides) {
+        this.slideNumber++;
+        this.fire('tutorial-slides-set-slide-change', this.slideNumber);
+      }
+    },
+
+    prepareForSlideOpenClose: function() {
+      this.$.card.classList.add('in-transition');
+    },
+
+    completeSlideOpenClose: function() {
+      this.$.card.classList.remove('in-transition');
+    },
+
+    spaceHandler: function() {
+      this.isSlideOpen() ? this.slideForward() : this.openSlides();
+    }
+  });
+  </script>
+</polymer-element>

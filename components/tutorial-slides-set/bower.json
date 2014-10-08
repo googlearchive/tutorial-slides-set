@@ -1,0 +1,24 @@
+{
+  "name": "tutorial-slides-set",
+  "version": "0.1.0",
+  "authors": [
+    "Keanu Lee <keanulee@google.com>"
+  ],
+  "description": "A slideshow component suitable for displaying tutorials.",
+  "keywords": [
+    "polymer",
+    "web-components",
+    "animations",
+    "slides"
+  ],
+  "main": "tutorial-slides-set.html",
+  "homepage": "https://polymerlabs.github.io/tutorial-slides-set/",
+  "dependencies": {
+    "polymer": "Polymer/polymer#master",
+    "core-animated-pages": "Polymer/core-animated-pages#master",
+    "core-icon-button": "Polymer/core-icon-button#master",
+    "core-a11y-keys": "Polymer/core-a11y-keys#master",
+    "font-roboto": "Polymer/font-roboto#master",
+    "more-routing": "Polymore/more-routing#master"
+  }
+}

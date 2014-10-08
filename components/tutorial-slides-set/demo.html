@@ -1,0 +1,241 @@
+<!--
+@license
+Copyright (c) 2014 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<!doctype html>
+<html lang="en" data-framework="polymer">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, maximum-scale=1.0, initial-scale=1.0, user-scalable=no"><meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>tutorial-slides-set</title>
+
+    <script src="../platform/platform.js"></script>
+    <link rel="import" href="../font-roboto/roboto.html">
+    <link rel="import" href="../more-routing/more-routing.html">
+    <link rel="import" href="tutorial-slides-router.html">
+    <link rel="import" href="tutorial-slides-set.html">
+
+    <style shim-shadowdom>
+    body {
+      font-family: 'RobotoDraft', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      background-color: #333;
+    }
+
+    h1 {
+      color: white;
+      font-weight: normal;
+    }
+
+    .container {
+      width: 981px;
+      margin: auto;
+    }
+
+    @media (max-width: 980px) {
+      .container {
+        width: 652px;
+      }
+    }
+
+    @media (max-width: 651px) {
+      .container {
+        width: 320px;
+      }
+    }
+
+
+    #get-the-code::shadow #preview {
+      background-color: #00bea4;
+      background-image: url(images/get-the-code.svg);
+    }
+
+    #get-the-code::shadow #progressBar {
+      background-color: #edff40;
+    }
+
+    #get-the-code tutorial-slide[color]  {
+      background-color: #00bea4;
+    }
+
+
+    #polymer-101::shadow #preview {
+      background-color: #00b7d3;
+      background-image: url(images/polymer-101.png);
+    }
+
+    #polymer-101::shadow #progressBar {
+      background-color: #edff40;
+    }
+
+    #polymer-101 tutorial-slide[color]  {
+      background-color: #00b7d3;
+    }
+
+
+    #understanding-polymer::shadow #preview {
+      background-color: #ff3f80;
+      background-image: url(images/understanding-polymer.svg);
+    }
+
+    #understanding-polymer::shadow #progressBar {
+      background-color: #17ffff;
+    }
+
+    #understanding-polymer tutorial-slide[color]  {
+      background-color: #ff3f80;
+    }
+
+
+    #element-guide::shadow #preview {
+      background-color: #ff5151;
+      background-image: url(images/element-guide.svg);
+    }
+
+    #element-guide::shadow #progressBar {
+      background-color: #17ffff;
+    }
+
+    #element-guide tutorial-slide[color]  {
+      background-color: #ff5151;
+    }
+
+
+    #designer-tool::shadow #preview {
+      background-color: #7b4cff;
+      background-image: url(images/designer-tool.svg);
+    }
+
+    #designer-tool::shadow #progressBar {
+      background-color: #ff5151;
+    }
+
+    #designer-tool tutorial-slide[color]  {
+      background-color: #7b4cff;
+    }
+
+
+    #shadow-dom::shadow #preview {
+      background-color: #ff9000;
+      background-image: url(images/shadow-dom.svg);
+    }
+
+    #shadow-dom::shadow #progressBar {
+      background-color: #63ffd9;
+    }
+
+    #shadow-dom tutorial-slide[color]  {
+      background-color: #ff9000;
+    }
+    </style>
+  </head>
+  <body fullbleed unresolved>
+    <more-routing driver="hash"></more-routing>
+
+    <div class="container">
+
+      <h1>Polymer Tutorials</h1>
+
+      <tutorial-slides-router>
+
+        <tutorial-slides-set id="get-the-code">
+          <h2>Get the code</h2>
+          <h3>The starter project includes Polymer, a set of elements, and a starter app.</h3>
+          <h4>5m</h4>
+          <tutorial-slide color>Part 1</tutorial-slide>
+          <tutorial-slide>
+            <p>This slide demonstrates how overflow content is handled.</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+          </tutorial-slide>
+          <tutorial-slide>Detailed Info</tutorial-slide>
+          <tutorial-slide>Detailed Info</tutorial-slide>
+          <tutorial-slide color>Part 2</tutorial-slide>
+          <tutorial-slide>Detailed Info</tutorial-slide>
+          <tutorial-slide>Detailed Info</tutorial-slide>
+        </tutorial-slides-set>
+
+        <tutorial-slides-set id="polymer-101">
+          <h2>Polymer 101</h2>
+          <h3>A brief introduction to Polymer API and some of the key concepts.</h3>
+          <h4>20m</h4>
+          <tutorial-slide color>Part 1</tutorial-slide>
+          <tutorial-slide>Detailed Info</tutorial-slide>
+          <tutorial-slide>Detailed Info</tutorial-slide>
+          <tutorial-slide>Detailed Info</tutorial-slide>
+          <tutorial-slide color>Part 2</tutorial-slide>
+          <tutorial-slide>Detailed Info</tutorial-slide>
+          <tutorial-slide>Detailed Info</tutorial-slide>
+        </tutorial-slides-set>
+
+        <tutorial-slides-set id="understanding-polymer">
+          <h2>Understanding Polymer</h2>
+          <h3>Learn Polymer’s world-view and take a quick tour through its three conceptual layers.</h3>
+          <h4>30m</h4>
+          <tutorial-slide color>Part 1</tutorial-slide>
+          <tutorial-slide>Detailed Info</tutorial-slide>
+          <tutorial-slide>Detailed Info</tutorial-slide>
+          <tutorial-slide>Detailed Info</tutorial-slide>
+          <tutorial-slide color>Part 2</tutorial-slide>
+          <tutorial-slide>Detailed Info</tutorial-slide>
+          <tutorial-slide>Detailed Info</tutorial-slide>
+        </tutorial-slides-set>
+
+        <tutorial-slides-set id="element-guide">
+          <h2>Element guide</h2>
+          <h3>Learn how to create well-defined, reusable components with Custom Elements.</h3>
+          <h4>30m</h4>
+          <tutorial-slide color>Part 1</tutorial-slide>
+          <tutorial-slide>Detailed Info</tutorial-slide>
+          <tutorial-slide>Detailed Info</tutorial-slide>
+          <tutorial-slide>Detailed Info</tutorial-slide>
+          <tutorial-slide color>Part 2</tutorial-slide>
+          <tutorial-slide>Detailed Info</tutorial-slide>
+          <tutorial-slide>Detailed Info</tutorial-slide>
+        </tutorial-slides-set>
+
+        <tutorial-slides-set id="designer-tool">
+          <h2>Designer Tool</h2>
+          <h3>Designer is a drag and drop tool for prototyping apps using Polymer. Save your experiments as Github gists.</h3>
+          <h4>10m</h4>
+          <tutorial-slide color>Part 1</tutorial-slide>
+          <tutorial-slide>Detailed Info</tutorial-slide>
+          <tutorial-slide>Detailed Info</tutorial-slide>
+          <tutorial-slide>Detailed Info</tutorial-slide>
+          <tutorial-slide color>Part 2</tutorial-slide>
+          <tutorial-slide>Detailed Info</tutorial-slide>
+          <tutorial-slide>Detailed Info</tutorial-slide>
+        </tutorial-slides-set>
+
+        <tutorial-slides-set id="shadow-dom">
+          <h2>Shadow dom</h2>
+          <h3>Learn all about shadow dom so you can woo your friends at the dinner table night.</h3>
+          <h4>15m</h4>
+          <tutorial-slide color>Part 1</tutorial-slide>
+          <tutorial-slide>Detailed Info</tutorial-slide>
+          <tutorial-slide>Detailed Info</tutorial-slide>
+          <tutorial-slide>Detailed Info</tutorial-slide>
+          <tutorial-slide color>Part 2</tutorial-slide>
+          <tutorial-slide>Detailed Info</tutorial-slide>
+          <tutorial-slide>Detailed Info</tutorial-slide>
+        </tutorial-slides-set>
+
+      </tutorial-slides-router>
+
+    </div>
+  </body>
+</html>

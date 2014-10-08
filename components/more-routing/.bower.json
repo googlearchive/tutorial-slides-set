@@ -1,0 +1,23 @@
+{
+  "private": true,
+  "name": "more-routing",
+  "dependencies": {
+    "core-item": "Polymer/core-item#master",
+    "more-switch": "Polymore/more-switch#master",
+    "polymer": "Polymer/polymer#master"
+  },
+  "devDependencies": {
+    "core-scaffold": "Polymer/core-scaffold#master",
+    "more-param": "Polymore/more-param#master"
+  },
+  "homepage": "https://github.com/Polymore/more-routing",
+  "_release": "7bf80a717f",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "7bf80a717fe93c2688ba48b7a691734b8ef65231"
+  },
+  "_source": "git://github.com/Polymore/more-routing.git",
+  "_target": "master",
+  "_originalSource": "Polymore/more-routing"
+}
