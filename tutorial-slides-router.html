@@ -74,7 +74,6 @@ Each `<tutorial-slides-set>` element in `<tutorial-slides-router>` must have an 
     update_: function() {
       for (var id in this.slideElementsMap_) {
         if (id === this.params.slideId) {
-          // TODO: make sure the following don't fire events (so that the handle*_ methods aren't called)
           this.slideElementsMap_[id].open = true;
           this.slideElementsMap_[id].slideNumber = this.params.slideNumber;
         } else {
